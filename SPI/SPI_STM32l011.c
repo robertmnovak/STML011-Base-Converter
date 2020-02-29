@@ -1,5 +1,11 @@
 #include "SPI_STM32l011.h"
 
+void spi_delay(int x){
+	while(x>0){
+		x--;
+	}
+}
+
 /********************************************************************************
 DMA Enable function
 
@@ -35,8 +41,9 @@ void SPI_Enable(void){
 	//Set PA5 AND PA7 to alternative functions SCLK AND MOSI
 	GPIOA->MODER &= ~(GPIO_MODER_MODE5 | GPIO_MODER_MODE7 | GPIO_MODER_MODE6);
 	GPIOA->MODER |= (GPIO_MODER_MODE5_1 | GPIO_MODER_MODE7_1 | GPIO_MODER_MODE6_1);
+	GPIOA->OSPEEDR |= (GPIO_OSPEEDER_OSPEED5_0 | GPIO_OSPEEDER_OSPEED7_0 | GPIO_OSPEEDER_OSPEED6_0);
 	
-	SPI1->CR1 |= (SPI_CR1_MSTR | SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE | SPI_CR1_SSM | SPI_CR1_SSI );
+	SPI1->CR1 |= (SPI_CR1_MSTR | SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE | SPI_CR1_SSM | SPI_CR1_SSI | SPI_CR1_BR_0);
 	SPI1->CR2 |= SPI_CR2_SSOE | SPI_CR2_TXDMAEN;
 	SPI1->CR1 |= SPI_CR1_SPE;
 }
@@ -51,6 +58,7 @@ This function waits for the transmit buffer to be empty before sending the data
 void SPI_Send(uint8_t data) {
 	while (!(SPI1->SR & SPI_SR_TXE)) {};
 		SPI1->DR = data;
+		spi_delay(20);
 }
 
 /********************************************************************************

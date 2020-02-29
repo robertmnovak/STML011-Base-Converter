@@ -4,7 +4,10 @@
 
 void delay(int x);
 void GPIOA_Enable(void);
+void system_clock_init(void);
+
 int main(void){
+	system_clock_init();
 	GPIOA_Enable();
 	SPI_Enable();
 	
@@ -25,7 +28,7 @@ int main(void){
 	drawString("Hex");
 	moveCursor(10, 55);
 	drawString("0xAAAAAAAA");
-	delay(500000);
+	/*delay(500000);
 	moveCursor(10, 205);
 	drawString("1111 0000 1011");
 	moveCursor(10,180);
@@ -35,11 +38,18 @@ int main(void){
 	moveCursor(10, 105);
 	drawString("4038378528");
 	moveCursor(10, 55);
-	drawString("0xF0B4C420");
+	drawString("0xF0B4C420");*/
 	while(1){
 		GPIOA->ODR ^= (1<<10);
-		delay(100000);
 	}
+}
+
+void system_clock_init(void){
+  RCC->CR    |=  (RCC_CR_HSION);
+  while (!(RCC->CR & RCC_CR_HSIRDY)) {};
+  RCC->CFGR  &= ~(RCC_CFGR_SW);
+  RCC->CFGR  |=  (RCC_CFGR_SW_HSI);
+  while (!(RCC->CFGR & RCC_CFGR_SWS_HSI)) {};
 }
 
 void delay(int x){
@@ -57,9 +67,11 @@ void GPIOA_Enable(void){
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
 	
 	GPIOA->ODR &= ~(1<<10);
-	GPIOA->MODER &= ~(GPIO_MODER_MODE10 | GPIO_MODER_MODE1 | GPIO_MODER_MODE2 | GPIO_MODER_MODE3 | GPIO_MODER_MODE4);
-	GPIOA->MODER |= (GPIO_MODER_MODE10_0 | GPIO_MODER_MODE1_0 | GPIO_MODER_MODE2_0 | GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0);
+	GPIOA->MODER &= ~(GPIO_MODER_MODE10 | GPIO_MODER_MODE2 | GPIO_MODER_MODE3 | GPIO_MODER_MODE4);
+	
+	GPIOA->MODER |= (GPIO_MODER_MODE10_0 | GPIO_MODER_MODE2_0 | GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0 | GPIO_MODER_MODE0_0);
 	GPIOA->OSPEEDR &= ~((1<<20)|(1<<21));
+	GPIOA->OSPEEDR |= (GPIO_OSPEEDER_OSPEED2_0 | GPIO_OSPEEDER_OSPEED3_0 | GPIO_OSPEEDER_OSPEED4_0);
 	GPIOA->PUPDR &= ~((1<<20)|(1<<21));
 	GPIOA->ODR |= CS;
 }

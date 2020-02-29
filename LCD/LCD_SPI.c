@@ -1,6 +1,6 @@
 #include "LCD_SPI.h"
 #include "font.h"
-uint16_t fill_screen = 0;
+uint32_t fill_screen = 0;
 uint16_t current_color = 0;
 struct LCD{
     uint16_t X;
@@ -135,7 +135,7 @@ void fillRect(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color){
 	GPIOA->ODR &= ~CS;
 	GPIOA->ODR |= DC;
 	DMA1_Channel3->CCR |= DMA_CCR_EN | DMA_CCR_TCIE;
-	while(fill_screen < 32000);
+	while(fill_screen < 55000);
 	GPIOA->ODR |= CS;
 }
 
@@ -147,11 +147,11 @@ screen with a color, this brought it down to 1-1.3 second fill time vs the
 3-3.3 second fill time without DMA
 ********************************************************************************/
 void DMA1_Channel2_3_IRQHandler(void){
-	while((DMA1->ISR & DMA_ISR_TCIF3) == 0);
-	while (!(SPI1->SR & SPI_SR_TXE)) {};
+	while(!(DMA1->ISR & DMA_ISR_TCIF3));
+	while (!(SPI1->SR & SPI_SR_TXE));
 	fill_screen++;
 	DMA1->IFCR = DMA_IFCR_CTCIF1;
-	if(fill_screen > 32000){
+	if(fill_screen > 55000){
 		DMA1_Channel3->CCR &= ~(DMA_CCR_EN |DMA_CCR_TCIE);
 	}
 }
@@ -330,10 +330,9 @@ void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color){
 	DMA1_Channel3->CMAR = (uint32_t)color_data;
 	GPIOA->ODR &= ~CS;
 	GPIOA->ODR |= DC;
-	fill_screen = 31550;//Need to send at most 450 pixels per character space
+	fill_screen = 115600;//Need to send at most 450 pixels per character space
 	DMA1_Channel3->CCR |= DMA_CCR_EN | DMA_CCR_TCIE;
-	while(fill_screen < 32000);
-
+	while(DMA1_Channel3->CCR & DMA_CCR_EN);
 	GPIOA->ODR |= CS;
 }
 /********************************************************************************
@@ -394,7 +393,7 @@ void drawChar(char character){
   }
 	
 //Preps the block just incase there is any previous text written there
-	clearChar(LCD.X, LCD.Y-21, charWidth, charHeight, BLACK);
+	//clearChar(LCD.X, LCD.Y-21, charWidth, charHeight, BLACK);
 	
 	
 /*

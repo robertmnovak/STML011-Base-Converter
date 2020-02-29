@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\First_Test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\First_Test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Feb 28 00:59:36 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Feb 28 22:58:33 2020
 <BR><P>
-<H3>Maximum Stack Usage =        180 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; drawString &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+__rt_entry_main &rArr; main &rArr; drawString &rArr; drawChar &rArr; drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 <P>
 <H3>
 Functions with no stack information
@@ -178,8 +178,8 @@ Global Symbols
 <P><STRONG><a name="[7e]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[34]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 180 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; drawString &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; drawString &rArr; drawChar &rArr; drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 <LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -309,7 +309,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Full
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
+<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 </UL>
 
 <P><STRONG><a name="[3e]"></a>free</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, h1_free.o(.text))
@@ -318,7 +318,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
-<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
+<LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 </UL>
 
 <P><STRONG><a name="[82]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -458,7 +458,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__default_signal_display
 </UL>
 
-<P><STRONG><a name="[1d]"></a>DMA1_Channel2_3_IRQHandler</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, lcd_spi.o(i.DMA1_Channel2_3_IRQHandler))
+<P><STRONG><a name="[1d]"></a>DMA1_Channel2_3_IRQHandler</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, lcd_spi.o(i.DMA1_Channel2_3_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l011xx.o(RESET)
 </UL>
 <P><STRONG><a name="[4b]"></a>DMA_Enable</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, spi_stm32l011.o(i.DMA_Enable))
@@ -469,7 +469,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Enable
 </UL>
 
-<P><STRONG><a name="[5b]"></a>GPIOA_Enable</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, main.o(i.GPIOA_Enable))
+<P><STRONG><a name="[5c]"></a>GPIOA_Enable</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, main.o(i.GPIOA_Enable))
 <BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -477,7 +477,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
-<P><STRONG><a name="[4d]"></a>SPI_Enable</STRONG> (Thumb, 90 bytes, Stack size 8 bytes, spi_stm32l011.o(i.SPI_Enable))
+<P><STRONG><a name="[4d]"></a>SPI_Enable</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, spi_stm32l011.o(i.SPI_Enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = SPI_Enable &rArr; DMA_Enable &rArr; __NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA_Enable
@@ -485,74 +485,65 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[4f]"></a>SPI_Send</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, spi_stm32l011.o(i.SPI_Send))
-<BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
+<P><STRONG><a name="[4e]"></a>SPI_Send</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, spi_stm32l011.o(i.SPI_Send))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = SPI_Send
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
 </UL>
 
-<P><STRONG><a name="[4e]"></a>SPI_Transmit</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, spi_stm32l011.o(i.SPI_Transmit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SPI_Transmit
+<P><STRONG><a name="[50]"></a>SPI_Transmit</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, spi_stm32l011.o(i.SPI_Transmit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Send
+<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Send
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
 </UL>
 
 <P><STRONG><a name="[27]"></a>SystemInit</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, system_stm32l0xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32l011xx.o(.text)
 </UL>
-<P><STRONG><a name="[50]"></a>clearChar</STRONG> (Thumb, 170 bytes, Stack size 32 bytes, lcd_spi.o(i.clearChar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
-</UL>
-<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-</UL>
-<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
-</UL>
-
-<P><STRONG><a name="[5d]"></a>delay</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, main.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[52]"></a>drawChar</STRONG> (Thumb, 662 bytes, Stack size 88 bytes, lcd_spi.o(i.drawChar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<P><STRONG><a name="[51]"></a>drawChar</STRONG> (Thumb, 636 bytes, Stack size 88 bytes, lcd_spi.o(i.drawChar))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = drawChar &rArr; drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reverseBits
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearChar
+<LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reverseBits
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
 </UL>
 <BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawString
 </UL>
 
-<P><STRONG><a name="[54]"></a>drawPixel</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, lcd_spi.o(i.drawPixel))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<P><STRONG><a name="[53]"></a>drawPixel</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, lcd_spi.o(i.drawPixel))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
-<LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
+<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 </UL>
 
 <P><STRONG><a name="[55]"></a>drawString</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, lcd_spi.o(i.drawString))
-<BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = drawString &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = drawString &rArr; drawChar &rArr; drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
+<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[56]"></a>fillRect</STRONG> (Thumb, 168 bytes, Stack size 32 bytes, lcd_spi.o(i.fillRect))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = fillRect &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<P><STRONG><a name="[56]"></a>fillRect</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, lcd_spi.o(i.fillRect))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = fillRect &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 </UL>
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
 <P><STRONG><a name="[57]"></a>init_lcd</STRONG> (Thumb, 622 bytes, Stack size 8 bytes, lcd_spi.o(i.init_lcd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = init_lcd &rArr; fillRect &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = init_lcd &rArr; fillRect &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
@@ -562,55 +553,62 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 228 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = main &rArr; drawString &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 150 bytes, Stack size 0 bytes, main.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = main &rArr; drawString &rArr; drawChar &rArr; drawPixel &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
+<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawString
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Enable
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_Enable
+<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_clock_init
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOA_Enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[5c]"></a>moveCursor</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, lcd_spi.o(i.moveCursor))
+<P><STRONG><a name="[5d]"></a>moveCursor</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, lcd_spi.o(i.moveCursor))
 <BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[53]"></a>reverseBits</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, lcd_spi.o(i.reverseBits))
+<P><STRONG><a name="[52]"></a>reverseBits</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, lcd_spi.o(i.reverseBits))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = reverseBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
+<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 </UL>
 
-<P><STRONG><a name="[51]"></a>setAddrWindow</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, lcd_spi.o(i.setAddrWindow))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = setAddrWindow &rArr; writedata &rArr; SPI_Transmit
+<P><STRONG><a name="[54]"></a>setAddrWindow</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, lcd_spi.o(i.setAddrWindow))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writedata
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writecommand
 </UL>
 <BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fillRect
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
-<LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearChar
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawPixel
+</UL>
+
+<P><STRONG><a name="[4f]"></a>spi_delay</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, spi_stm32l011.o(i.spi_delay))
+<BR><BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Send
+</UL>
+
+<P><STRONG><a name="[5b]"></a>system_clock_init</STRONG> (Thumb, 66 bytes, Stack size 0 bytes, main.o(i.system_clock_init))
+<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[59]"></a>writecommand</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, lcd_spi.o(i.writecommand))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = writecommand &rArr; SPI_Transmit
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = writecommand &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
 <P><STRONG><a name="[5a]"></a>writedata</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, lcd_spi.o(i.writedata))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = writedata &rArr; SPI_Transmit
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = writedata &rArr; SPI_Transmit &rArr; SPI_Send
 </UL>
-<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
+<BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
+<BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setAddrWindow
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 <P>

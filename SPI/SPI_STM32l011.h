@@ -3,6 +3,7 @@
 #include "stm32l0xx.h"
 #include <stdint.h>
 
+void spi_delay(int x);
 void DMA_Enable(void);
 void SPI_Enable(void);
 void SPI_Transmit(uint8_t *dataIn, uint16_t size);

@@ -8,8 +8,6 @@
 #define DC (1<<2)
 //Reset pin for LCD
 #define RS (1<<3)
-//Led Pin for LCD
-#define LED (1<<1)
 //CS pin for LCD
 #define CS (1<<4)
 
