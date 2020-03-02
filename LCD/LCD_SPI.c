@@ -440,7 +440,10 @@ draw a pixel with the specified color at that location
   LCD.X += ((charWidth) + 1);
 }
 
-
+uint8_t get_charWidth(char character){
+	uint8_t charWidth = charWidth = verdana_descriptors[(uint8_t)character - ' '][0];
+	return (charWidth+1);
+}
 /********************************************************************************
 Draw String Function
 

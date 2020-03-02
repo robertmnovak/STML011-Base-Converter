@@ -1,5 +1,5 @@
 Dependencies for Project 'First_Test', Target 'MAIN': (DO NOT MODIFY !)
-F (.\main.c)(0x5E5C56DF)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x5E5C76FE)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l0xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l011xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2671B6)
@@ -9,8 +9,8 @@ I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cm
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2671B6)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h)(0x5BD8FDA0)
 I (.\SPI\SPI_STM32l011.h)(0x5E59FE53)
-I (.\LCD\LCD_SPI.h)(0x5E58D9D9)
-I (.\Keypad\Keypad.h)(0x5E5C53F0)
+I (.\LCD\LCD_SPI.h)(0x5E5C76FD)
+I (.\Keypad\Keypad.h)(0x5E5C7B31)
 F (C:\Users\Robert\Desktop\STM32NUCLEO\STM32L011chipTest\Src\system_stm32l0xx.c)(0x5E59E6D7)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\system_stm32l0xx.o --omf_browse .\objects\system_stm32l0xx.crf --depend .\objects\system_stm32l0xx.d)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l0xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l011xx.h)(0x5BD8FDA0)
@@ -32,8 +32,8 @@ I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cm
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2671B6)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h)(0x5BD8FDA0)
 F (.\SPI\SPI_STM32l011.h)(0x5E59FE53)()
-F (.\LCD\LCD_SPI.c)(0x5E5C5544)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\lcd_spi.o --omf_browse .\objects\lcd_spi.crf --depend .\objects\lcd_spi.d)
-I (LCD\LCD_SPI.h)(0x5E58D9D9)
+F (.\LCD\LCD_SPI.c)(0x5E5C6221)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\lcd_spi.o --omf_browse .\objects\lcd_spi.crf --depend .\objects\lcd_spi.d)
+I (LCD\LCD_SPI.h)(0x5E5C76FD)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l0xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l011xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2671B6)
@@ -44,10 +44,10 @@ I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cm
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h)(0x5BD8FDA0)
 I (.\SPI\SPI_STM32l011.h)(0x5E59FE53)
 I (LCD\font.h)(0x5E58897D)
-F (.\LCD\LCD_SPI.h)(0x5E58D9D9)()
+F (.\LCD\LCD_SPI.h)(0x5E5C76FD)()
 F (.\LCD\font.h)(0x5E58897D)()
-F (.\Keypad\Keypad.c)(0x5E5C5B56)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\keypad.o --omf_browse .\objects\keypad.crf --depend .\objects\keypad.d)
-I (Keypad\Keypad.h)(0x5E5C53F0)
+F (.\Keypad\Keypad.c)(0x5E5C8441)(--c99 --gnu -c --cpu Cortex-M0+ -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc -I ../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I ../Drivers/CMSIS/Include -I .\SPI -I .\LCD -I .\Keypad-I.\RTE\_MAIN-IC:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include-D__UVISION_VERSION="527" -D_RTE_ -DSTM32L011xx-o .\objects\keypad.o --omf_browse .\objects\keypad.crf --depend .\objects\keypad.d)
+I (Keypad\Keypad.h)(0x5E5C7B31)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l0xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\stm32l011xx.h)(0x5BD8FDA0)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm0plus.h)(0x5D2671B6)
@@ -56,6 +56,6 @@ I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cm
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D2671B6)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D2671B6)
 I (C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h)(0x5BD8FDA0)
-I (.\LCD\LCD_SPI.h)(0x5E58D9D9)
+I (.\LCD\LCD_SPI.h)(0x5E5C76FD)
 I (.\SPI\SPI_STM32l011.h)(0x5E59FE53)
-F (.\Keypad\Keypad.h)(0x5E5C53F0)()
+F (.\Keypad\Keypad.h)(0x5E5C7B31)()

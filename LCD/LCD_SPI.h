@@ -16,6 +16,8 @@
 #define GREEN 0x07E0
 #define BLACK 0x0000
 
+void print_decimal(void);
+uint8_t get_charWidth(char character);
 void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void fillRectTest(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void moveCursor(uint8_t x , uint8_t y);
