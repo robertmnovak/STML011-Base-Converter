@@ -330,9 +330,9 @@ void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color){
 	DMA1_Channel3->CMAR = (uint32_t)color_data;
 	GPIOA->ODR &= ~CS;
 	GPIOA->ODR |= DC;
-	fill_screen = 115600;//Need to send at most 450 pixels per character space
-	DMA1_Channel3->CCR |= DMA_CCR_EN | DMA_CCR_TCIE;
-	while(DMA1_Channel3->CCR & DMA_CCR_EN);
+	fill_screen = 54800;
+	DMA1_Channel3->CCR |= (DMA_CCR_EN | DMA_CCR_TCIE);
+	while(fill_screen < 55000);
 	GPIOA->ODR |= CS;
 }
 /********************************************************************************
@@ -393,7 +393,7 @@ void drawChar(char character){
   }
 	
 //Preps the block just incase there is any previous text written there
-	//clearChar(LCD.X, LCD.Y-21, charWidth, charHeight, BLACK);
+	clearChar(LCD.X, LCD.Y-21, charWidth, charHeight, BLACK);
 	
 	
 /*
@@ -439,6 +439,7 @@ draw a pixel with the specified color at that location
   }
   LCD.X += ((charWidth) + 1);
 }
+
 
 /********************************************************************************
 Draw String Function

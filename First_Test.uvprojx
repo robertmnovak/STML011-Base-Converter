@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32L0xx_HAL_Driver/Inc;../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32L0xx/Include;../Drivers/CMSIS/Include;.\SPI;.\LCD</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32L0xx_HAL_Driver/Inc;../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32L0xx/Include;../Drivers/CMSIS/Include;.\SPI;.\LCD;.\Keypad</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -441,6 +441,21 @@
               <FileName>font.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\LCD\font.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Keypad</GroupName>
+          <Files>
+            <File>
+              <FileName>Keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Keypad\Keypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>Keypad.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Keypad\Keypad.h</FilePath>
             </File>
           </Files>
         </Group>

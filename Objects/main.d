@@ -9,3 +9,4 @@
 .\objects\main.o: C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h
 .\objects\main.o: .\SPI\SPI_STM32l011.h
 .\objects\main.o: .\LCD\LCD_SPI.h
+.\objects\main.o: .\Keypad\Keypad.h
