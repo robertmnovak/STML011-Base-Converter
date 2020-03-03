@@ -7,6 +7,8 @@
 void delay(int x);
 void GPIOA_Enable(void);
 void system_clock_init(void);
+void setup_lcd_background(void);
+void sleepMode(void);
 
 int main(void){
 	system_clock_init();
@@ -14,7 +16,17 @@ int main(void){
 	SPI_Enable();
 	init_lcd();
 	GPIO_Keypad_Enable();
+	setup_lcd_background();
 	
+	
+	while(1){
+		
+	}
+
+}
+
+void setup_lcd_background(void){
+	fill_background();
 	moveCursor(10, 230);
 	drawString("Binary");
 	moveCursor(10, 205);
@@ -31,21 +43,6 @@ int main(void){
 	drawString("Hex");
 	moveCursor(10, 55);
 	drawString("0x00000000");
-	/*delay(500000);
-	moveCursor(10, 205);
-	drawString("1111 0000 1011");
-	moveCursor(10,180);
-	drawString("0100 1100 0100");
-	moveCursor(10,155);
-	drawString("0010 0000");
-	moveCursor(10, 105);
-	drawString("4038378528");
-	moveCursor(10, 55);
-	drawString("0xF0B4C420");*/
-	while(1){
-		
-	}
-
 }
 
 void system_clock_init(void){

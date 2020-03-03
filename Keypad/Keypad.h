@@ -9,11 +9,15 @@
 #define decimal_y 105
 #define hex_y 55
 
+#define HEX_MODE 0
+#define BINARY_MODE 1
+#define DECIMAL_MODE 2
 
 uint32_t convert_to_integer(char character);
 void GPIO_Keypad_Enable(void);
 void detect_keypress(void);
 void print_decimal(void);
 void print_binary(void);
+void print_hex(void);
 #endif /* KEYPAD_H_ */
 

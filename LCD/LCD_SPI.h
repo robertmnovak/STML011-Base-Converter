@@ -16,6 +16,7 @@
 #define GREEN 0x07E0
 #define BLACK 0x0000
 
+void fill_background(void);
 void print_decimal(void);
 uint8_t get_charWidth(char character);
 void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);

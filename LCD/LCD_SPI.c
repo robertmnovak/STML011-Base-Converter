@@ -283,6 +283,10 @@ void init_lcd(void){
 		fillRect(0, 0, LCD.HEIGHT, LCD.WIDTH, BLACK);
 }
 
+void fill_background(void){
+	fillRect(0, 0, LCD.HEIGHT, LCD.WIDTH, BLACK);
+}
+
 /********************************************************************************
 Draw Pixel Function
 

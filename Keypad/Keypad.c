@@ -2,18 +2,21 @@
 #include "LCD_SPI.h"
 
 uint16_t keyRelease = 0;
-uint8_t textX = 44;
+uint8_t textX = 10;
 uint16_t debounce = 0;
 uint8_t prevKey = 33;
 uint8_t currentKey = 33;
 uint8_t keySent = 0;
 uint8_t numCount = 0;
 uint32_t enteredNumber = 0;
+uint8_t currentState = DECIMAL_MODE;
 
 char keys[2][2] = {
-	{'A', 'B'},
-	{'C', 'D'}
+	{'1', '2'},
+	{'3', 'E'}
 };
+
+
 
 /********************************************************************************
 GPIO Keypad Enable
@@ -27,7 +30,6 @@ void GPIO_Keypad_Enable(void){
 	GPIOA->MODER |= (GPIO_MODER_MODE0_0 | GPIO_MODER_MODE1_0);
 	GPIOA->OSPEEDR |= (GPIO_MODER_MODE0_1 | GPIO_MODER_MODE1_1);
 	GPIOA->PUPDR |= (GPIO_PUPDR_PUPD9_1 | GPIO_PUPDR_PUPD10_1);
-	
 	GPIOA->ODR |= (1<<0)|(1<<1);
 
 	EXTI->IMR |= (EXTI_IMR_IM9 | EXTI_IMR_IM10);
@@ -78,19 +80,78 @@ void detect_keypress(void){
 		debounce = 0;
 	} else if(debounce > 499 && keySent == 0){
 		keyRelease = 0;
-		moveCursor(textX, hex_y);
-		enteredNumber |= (convert_to_integer(keys[row][col]) << (28 - numCount*4));
-		drawChar(keys[row][col]);
-		keySent = 1;
-		numCount++;
-		textX += get_charWidth(keys[row][col]);
-		if(numCount == 8){
-			print_decimal();
-			print_binary();
-			enteredNumber = 0;
-			numCount = 0;
-			textX = 44;
-			moveCursor(textX, 55);
+		switch(currentState){
+			case HEX_MODE: 
+				moveCursor(textX, hex_y);
+				enteredNumber |= (convert_to_integer(keys[row][col]) << (28 - numCount*4));
+				drawChar(keys[row][col]);
+				keySent = 1;
+				numCount++;
+				textX += get_charWidth(keys[row][col]);
+				if(numCount == 8){
+					print_decimal();
+					print_binary();
+					enteredNumber = 0;
+					numCount = 0;
+					textX = 44;
+					moveCursor(textX, 55);
+				}
+				break;
+			case BINARY_MODE: 
+				if(numCount < 12){
+					moveCursor(textX, binary_y_1);
+				} else if(numCount < 24){
+					moveCursor(textX, binary_y_2);
+				} else {
+					moveCursor(textX, binary_y_3);
+				}
+				enteredNumber |= (convert_to_integer(keys[row][col]) << (31-numCount));
+				drawChar(keys[row][col]);
+				keySent = 1;
+				numCount++;
+				textX += get_charWidth(keys[row][col]);
+				if(numCount == 32){
+					print_decimal();
+					print_hex();
+					enteredNumber = 0;
+					numCount = 0;
+					textX = 10;
+				} else if(numCount == 4 | numCount == 8 | numCount == 16 | numCount == 20 | numCount == 28){
+					drawChar(' ');
+					textX += get_charWidth(' ');
+				} else if(numCount == 12 | numCount == 24){
+					textX = 10;
+				}
+				break;
+			
+			case DECIMAL_MODE:
+				if(keys[row][col] == 'E'){
+					print_binary();
+					print_hex();
+					enteredNumber = 0;
+					numCount = 0;
+					textX = 10;
+					break;
+				}
+				
+				moveCursor(textX, decimal_y);
+				keySent = 1;
+				drawChar(keys[row][col]);
+				textX += get_charWidth(keys[row][col]);
+				numCount++;
+				enteredNumber *= 10;
+				enteredNumber += convert_to_integer(keys[row][col]);
+				
+				if(numCount == 10){
+					print_binary();
+					print_hex();
+					enteredNumber = 0;
+					numCount = 0;
+					textX = 10;
+				}
+			default:
+			
+				break;
 		}
 	} else {
 		if(keyRelease > 23000){
@@ -102,6 +163,91 @@ void detect_keypress(void){
 	}
 }
 
+/********************************************************************************
+Print Hex
+
+Takes the number that was inputted by the user and converts it to Hex and prints
+it onto the LCD screen
+********************************************************************************/
+void print_hex(void){
+	uint32_t tempNum = enteredNumber;
+	uint8_t tempX = 163;
+	uint8_t temp_numCount = 0;
+	while(temp_numCount < 8){
+		moveCursor(tempX, hex_y);
+		switch(tempNum%16){
+			case 0:
+				drawChar('0');
+					tempX -= get_charWidth('0');
+				break;
+			case 1:
+				drawChar('1');
+				tempX -= get_charWidth('1');
+				break;
+			case 2:
+				drawChar('2');
+				tempX -= get_charWidth('2');
+				break;
+			case 3:
+				drawChar('3');
+				tempX -= get_charWidth('3');
+				break;
+			case 4:
+				drawChar('4');
+				tempX -= get_charWidth('4');
+				break;
+			case 5:
+				drawChar('5');
+				tempX -= get_charWidth('5');
+				break;
+			case 6:
+				drawChar('6');
+				tempX -= get_charWidth('6');
+				break;
+			case 7:
+				drawChar('7');
+				tempX -= get_charWidth('7');
+				break;
+			case 8:
+				drawChar('8');
+				tempX -= get_charWidth('8');
+				break;
+			case 9:
+				drawChar('9');
+				tempX -= get_charWidth('9');
+				break;
+			case 10:
+				drawChar('A');
+				tempX -= get_charWidth('A');
+				break;
+			case 11:
+				drawChar('B');
+				tempX -= get_charWidth('B');
+				break;
+			case 12:
+				drawChar('C');
+				tempX -= get_charWidth('C');
+				break;
+			case 13:
+				drawChar('D');
+				tempX -= get_charWidth('D');
+				break;
+			case 14:
+				drawChar('E');
+				tempX -= get_charWidth('E');
+				break;
+			case 15:
+				drawChar('F');
+				tempX -= get_charWidth('F');
+				break;
+			default:
+				
+				break;
+		}
+		tempNum /= 16;
+		temp_numCount++;
+	}
+}
 
 /********************************************************************************
 Print Binary
