@@ -41,7 +41,7 @@ void GPIO_Keypad_Enable(void){
 	GPIOB->MODER &= ~(GPIO_MODER_MODE3 | GPIO_MODER_MODE4 | GPIO_MODER_MODE5 | GPIO_MODER_MODE6 | GPIO_MODER_MODE7);
 	GPIOB->MODER |= (GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0 | GPIO_MODER_MODE5_0 | GPIO_MODER_MODE6_0 | GPIO_MODER_MODE7_0);
 	GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEED3_0 | GPIO_OSPEEDER_OSPEED4_0 | GPIO_OSPEEDER_OSPEED5_0 | GPIO_OSPEEDER_OSPEED6_0 | GPIO_OSPEEDER_OSPEED7_0);
-	GPIOB->ODR |= (1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7);
+	GPIOB->ODR |= (1<<7);
 	
 	//Set-up interrupts for the rows
 	EXTI->IMR |= (EXTI_IMR_IM9 | EXTI_IMR_IM10 | EXTI_IMR_IM11 | EXTI_IMR_IM12);
@@ -79,7 +79,6 @@ void detect_keypress(void){
 	
 		//Check column 4
 	GPIOB->ODR |= (1<<6);
-	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 3; row = 0;
 	} else if (GPIOA->IDR & (1<<10)){
@@ -93,7 +92,6 @@ void detect_keypress(void){
 
 		//Check column 3
 	GPIOB->ODR |= (1<<5);
-	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 2; row = 0;
 	} else if (GPIOA->IDR & (1<<10)){
@@ -107,7 +105,6 @@ void detect_keypress(void){
 	
 		//Check column 2
 	GPIOB->ODR |= (1<<4);
-	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 1; row = 0;
 	} else if (GPIOA->IDR & (1<<10)){
@@ -145,57 +142,72 @@ void detect_keypress(void){
 		debounce = 0;
 	} else if(debounce > 499 && keySent == 0){
 		keyRelease = 0;
-		/*
-			
-		*/
 		switch(currentState){
-/*****************************HEX*************************************/			
+/*****************************HEX START*************************************/			
 			case HEX_MODE: 
-				moveCursor(textX, hex_y);
-				enteredNumber |= (convert_to_integer(keys[row][col]) << (28 - numCount*4));
-				drawChar(keys[row][col], GREEN);
-				keySent = 1;
-				numCount++;
-				textX += get_charWidth(keys[row][col]);
-				if(numCount == 8){
-					print_decimal();
-					print_binary();
+				if(keys[row][col] < 71){
+					moveCursor(textX, hex_y);
+					enteredNumber |= (convert_to_integer(keys[row][col]) << (28 - numCount*4));
+					drawChar(keys[row][col], GREEN);
+					keySent = 1;
+					numCount++;
+					textX += get_charWidth(keys[row][col]);
+					if(numCount == 8){
+						print_decimal();
+						print_binary();
+						enteredNumber = 0;
+						numCount = 0;
+						textX = 44;
+						moveCursor(textX, 55);
+						currentState = MAIN_MENU;
+					}
+				} else if (keys[row][col] == CLEAR){
+					erase_Hex();
 					enteredNumber = 0;
-					numCount = 0;
 					textX = 44;
-					moveCursor(textX, 55);
-					currentState = MAIN_MENU;
-				}
-				break;
-/*****************************BINARY*************************************/				
-			case BINARY_MODE: 
-				if(numCount < 12){
-					moveCursor(textX, binary_y_1);
-				} else if(numCount < 24){
-					moveCursor(textX, binary_y_2);
-				} else {
-					moveCursor(textX, binary_y_3);
-				}
-				enteredNumber |= (convert_to_integer(keys[row][col]) << (31-numCount));
-				drawChar(keys[row][col], GREEN);
-				keySent = 1;
-				numCount++;
-				textX += get_charWidth(keys[row][col]);
-				if(numCount == 32){
-					print_decimal();
-					print_hex();
-					enteredNumber = 0;
 					numCount = 0;
-					textX = 10;
-					currentState = MAIN_MENU;
-				} else if(numCount == 4 | numCount == 8 | numCount == 16 | numCount == 20 | numCount == 28){
-					drawChar(' ', GREEN);
-					textX += get_charWidth(' ');
-				} else if(numCount == 12 | numCount == 24){
-					textX = 10;
 				}
 				break;
-/*****************************DECIMAL*************************************/			
+/*****************************HEX END*************************************/	
+				
+/*****************************BINARY START*************************************/				
+			case BINARY_MODE: 
+				if(keys[row][col] == '0' || keys[row][col] == '1'){
+					if(numCount < 12){
+						moveCursor(textX, binary_y_1);
+					} else if(numCount < 24){
+						moveCursor(textX, binary_y_2);
+					} else {
+						moveCursor(textX, binary_y_3);
+					}
+					enteredNumber |= (convert_to_integer(keys[row][col]) << (31-numCount));
+					drawChar(keys[row][col], GREEN);
+					keySent = 1;
+					numCount++;
+					textX += get_charWidth(keys[row][col]);
+					if(numCount == 32){
+						print_decimal();
+						print_hex();
+						enteredNumber = 0;
+						numCount = 0;
+						textX = 10;
+						currentState = MAIN_MENU;
+					} else if(numCount == 4 | numCount == 8 | numCount == 16 | numCount == 20 | numCount == 28){
+						drawChar(' ', GREEN);
+						textX += get_charWidth(' ');
+					} else if(numCount == 12 | numCount == 24){
+						textX = 10;
+					}
+				} else if (keys[row][col] == CLEAR){
+					erase_Binary();
+					textX = 10;
+					numCount = 0;
+					enteredNumber = 0;
+				}
+				break;
+/*****************************BINARY END*************************************/	
+				
+/*****************************DECIMAL START*************************************/			
 			case DECIMAL_MODE:
 				if(keys[row][col] == ENTER){
 					print_binary();
@@ -205,26 +217,37 @@ void detect_keypress(void){
 					textX = 10;
 					currentState = MAIN_MENU;
 					break;
-				}
-				
-				moveCursor(textX, decimal_y);
-				keySent = 1;
-				drawChar(keys[row][col], GREEN);
-				textX += get_charWidth(keys[row][col]);
-				numCount++;
-				enteredNumber *= 10;
-				enteredNumber += convert_to_integer(keys[row][col]);
-				
-				if(numCount == 10){
-					print_binary();
-					print_hex();
+				} else if(keys[row][col] == CLEAR){
+					erase_Decimal();
 					enteredNumber = 0;
 					numCount = 0;
 					textX = 10;
+				} else if(keys[row][col] < 58){
+					moveCursor(textX, decimal_y);
+					keySent = 1;
+					drawChar(keys[row][col], GREEN);
+					textX += get_charWidth(keys[row][col]);
+					numCount++;
+					enteredNumber *= 10;
+					enteredNumber += convert_to_integer(keys[row][col]);
+					
+					if(numCount == 10){
+						print_binary();
+						print_hex();
+						enteredNumber = 0;
+						numCount = 0;
+						textX = 10;
+						currentState = MAIN_MENU;
+					}
 				}
-/*****************************MAIN MENU*************************************/			
+/*****************************DECIMAL END*************************************/		
+				
+/*****************************MAIN MENU START*************************************/			
 			case MAIN_MENU:
 				if(keys[row][col] == ENTER){
+					erase_Binary();
+					erase_Hex();
+					erase_Decimal();
 					currentState = menu_select;
 					if(currentState == HEX_MODE) textX = 44;
 					if(currentState == DECIMAL_MODE | currentState == BINARY_MODE) textX = 10;
@@ -246,6 +269,7 @@ void detect_keypress(void){
 				}
 				keySent = 1;
 			break;
+/*****************************MAIN MENU END*************************************/		
 			default:
 			
 				break;
@@ -260,6 +284,37 @@ void detect_keypress(void){
 	}
 }
 
+
+void erase_Binary(void){
+	set_fill(45000);
+	fillRect(10, 130, 232, 75, BLACK);
+	moveCursor(10, 205);
+	drawString("0000 0000 0000", GREEN);
+	moveCursor(10,180);
+	drawString("0000 0000 0000", GREEN);
+	moveCursor(10,155);
+	drawString("0000 0000", GREEN);
+}
+
+void erase_Hex(void){
+	set_fill(50000);
+	fillRect(44, 30, 131, 25, BLACK);
+	moveCursor(44,55);
+	drawString("00000000", GREEN);
+}
+
+void erase_Decimal(void){
+	set_fill(50000);
+	fillRect(10, 80, 175, 25, BLACK);
+	moveCursor(10, 105);
+	drawString("0", GREEN);
+}
+
+/********************************************************************************
+Menu Update
+
+Changes current selected mode to RED color and all others to GREEN
+********************************************************************************/
 void updateMenu(void){
 	if(menu_select == BINARY_MODE){
 		moveCursor(10, 230);
@@ -365,6 +420,7 @@ void print_hex(void){
 			default:
 				
 				break;
+				
 		}
 		tempNum /= 16;
 		temp_numCount++;

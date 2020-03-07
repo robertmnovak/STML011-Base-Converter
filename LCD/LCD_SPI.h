@@ -17,11 +17,11 @@
 #define BLACK 0x0000
 #define RED 0XF800
 
+void set_fill(uint32_t x);
 void fill_background(void);
 void print_decimal(void);
 uint8_t get_charWidth(char character);
 void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
-void fillRectTest(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void moveCursor(uint8_t x , uint8_t y);
 void drawString(char *str, uint16_t color);
 void drawPixel(int16_t x, int16_t y, uint16_t color);
@@ -31,7 +31,7 @@ void LCD_Delay(int x);
 void init_lcd(void);
 void writedata(uint8_t d);
 void writecommand(uint8_t d);
-void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color);
+void fillRect(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
 void hspi_cmd(uint8_t cmd);
 #endif /* SPI_LCD_SPI_H_ */

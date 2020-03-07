@@ -139,6 +139,10 @@ void fillRect(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color){
 	GPIOA->ODR |= CS;
 }
 
+void set_fill(uint32_t x){
+	fill_screen = x;
+}
+
 /********************************************************************************
 DMA Interrupt Handler
 

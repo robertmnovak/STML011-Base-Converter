@@ -25,7 +25,9 @@ void detect_keypress(void);
 void print_decimal(void);
 void print_binary(void);
 void print_hex(void);
-void keypad_Delay(int x);
 void updateMenu(void);
+void erase_Binary(void);
+void erase_Hex(void);
+void erase_Decimal(void);
 #endif /* KEYPAD_H_ */
 
