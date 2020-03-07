@@ -9,9 +9,10 @@
 #define decimal_y 105
 #define hex_y 55
 
-#define HEX_MODE 0
-#define BINARY_MODE 1
-#define DECIMAL_MODE 2
+#define HEX_MODE 2
+#define BINARY_MODE 0
+#define DECIMAL_MODE 1
+#define MAIN_MENU 3
 
 #define CLEAR 'R'
 #define ENTER 'T'
@@ -25,5 +26,6 @@ void print_decimal(void);
 void print_binary(void);
 void print_hex(void);
 void keypad_Delay(int x);
+void updateMenu(void);
 #endif /* KEYPAD_H_ */
 

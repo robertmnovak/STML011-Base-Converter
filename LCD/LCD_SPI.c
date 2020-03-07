@@ -348,7 +348,7 @@ then reads the bitmap information and stores it into a temp array. Once the temp
 array is filled it then goes through a for loop that ORs each element of that array
 with a 1 and draws the pixel if the result is a 1.
 ********************************************************************************/
-void drawChar(char character){
+void drawChar(char character, uint16_t color){
 
     uint8_t k = 0,i,j,l = 0;
     uint8_t charWidth;
@@ -411,7 +411,7 @@ draw a pixel with the specified color at that location
     for(i = 0 ; i < charHeight ; i++){
            for(j = 0 ; j < (charWidth + 1) ; j++){
               if(temp[i] & (mask >> j)) {
-                drawPixel(tempX , tempY , GREEN);
+                drawPixel(tempX , tempY , color);
               }
               tempX++;
            }
@@ -422,7 +422,7 @@ draw a pixel with the specified color at that location
       for(i = 0 ; i < charHeight ; i++) {
              for(j = 0 ; j < (charWidth + 1) ; j++) {
                 if(temp16[i] & (mask16 >> j)) {
-                  drawPixel(tempX , tempY , GREEN);
+                  drawPixel(tempX , tempY , color);
                 }
                 tempX++;
              }
@@ -433,7 +433,7 @@ draw a pixel with the specified color at that location
       for(i = 0 ; i < charHeight ; i++) {
              for(j = 0 ; j < (charWidth + 1) ; j++) {
                 if(temp24[i] & (mask24 >> j)) {
-                  drawPixel(tempX , tempY , GREEN);
+                  drawPixel(tempX , tempY , color);
                 }
                 tempX++;
              }
@@ -453,8 +453,8 @@ Draw String Function
 
 Goes through a string and runs drawChar for each character in the string
 ********************************************************************************/
-void drawString(char *str){
+void drawString(char *str, uint16_t color){
     while(*str){
-        drawChar(*(str++));
+        drawChar(*(str++), color);
     }
 }

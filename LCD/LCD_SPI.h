@@ -15,6 +15,7 @@
 // Color definitions
 #define GREEN 0x07E0
 #define BLACK 0x0000
+#define RED 0XF800
 
 void fill_background(void);
 void print_decimal(void);
@@ -22,9 +23,9 @@ uint8_t get_charWidth(char character);
 void clearChar(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void fillRectTest(int16_t y, int16_t x, int16_t h, int16_t w, uint16_t color);
 void moveCursor(uint8_t x , uint8_t y);
-void drawString(char *str);
+void drawString(char *str, uint16_t color);
 void drawPixel(int16_t x, int16_t y, uint16_t color);
-void drawChar(char character);
+void drawChar(char character, uint16_t color);
 uint8_t reverseBits(uint8_t num);
 void LCD_Delay(int x);
 void init_lcd(void);

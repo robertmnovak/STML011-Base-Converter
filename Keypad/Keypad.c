@@ -9,7 +9,8 @@ uint8_t currentKey = 33;
 uint8_t keySent = 0;
 uint8_t numCount = 0;
 uint32_t enteredNumber = 0;
-uint8_t currentState = DECIMAL_MODE;
+uint8_t currentState = MAIN_MENU;
+uint8_t menu_select = 0;
 
 char keys[4][5] = {
 	{'1', '2', '3', 'F', CLEAR}, //R = CLEAR
@@ -18,13 +19,6 @@ char keys[4][5] = {
 	{'0', 'A', 'B', 'C', DOWN}	//J = DOWN
 };
 
-
-
-void keypad_Delay(int x){
-	while(x > 0){
-		x--;
-	}
-}
 
 /********************************************************************************
 GPIO Keypad Enable
@@ -49,11 +43,9 @@ void GPIO_Keypad_Enable(void){
 	GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEED3_0 | GPIO_OSPEEDER_OSPEED4_0 | GPIO_OSPEEDER_OSPEED5_0 | GPIO_OSPEEDER_OSPEED6_0 | GPIO_OSPEEDER_OSPEED7_0);
 	GPIOB->ODR |= (1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7);
 	
+	//Set-up interrupts for the rows
 	EXTI->IMR |= (EXTI_IMR_IM9 | EXTI_IMR_IM10 | EXTI_IMR_IM11 | EXTI_IMR_IM12);
 	EXTI->RTSR |= (EXTI_RTSR_RT9 | EXTI_RTSR_RT10 | EXTI_RTSR_RT11 | EXTI_RTSR_RT12);
-	
-	//EXTI->IMR |= ( EXTI_IMR_IM10);
-	//EXTI->RTSR |= (EXTI_RTSR_RT10);
 	
 	NVIC_EnableIRQ(EXTI4_15_IRQn);
 	NVIC_SetPriority(EXTI4_15_IRQn, 1);
@@ -76,14 +68,12 @@ void detect_keypress(void){
 	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 4; row = 0;
-		
 	} else if (GPIOA->IDR & (1<<10)){
 		col = 4; row = 1;
-	
 	} else if (GPIOA->IDR & (1<<11)){
-			col = 4; row = 2;
+		col = 4; row = 2;
 	} else if (GPIOA->IDR & (1<<12)){
-			col = 4; row = 3;
+		col = 4; row = 3;
 	}
 	GPIOB->ODR &= ~(1<<7);
 	
@@ -92,14 +82,12 @@ void detect_keypress(void){
 	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 3; row = 0;
-		
 	} else if (GPIOA->IDR & (1<<10)){
 		col = 3; row = 1;
-	
 	} else if (GPIOA->IDR & (1<<11)){
-			col = 3; row = 2;
+		col = 3; row = 2;
 	} else if (GPIOA->IDR & (1<<12)){
-			col = 3; row = 3;
+		col = 3; row = 3;
 	}
 	GPIOB->ODR &= ~(1<<6);
 
@@ -108,14 +96,12 @@ void detect_keypress(void){
 	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 2; row = 0;
-		
 	} else if (GPIOA->IDR & (1<<10)){
 		col = 2; row = 1;
-	
 	} else if (GPIOA->IDR & (1<<11)){
-			col = 2; row = 2;
+		col = 2; row = 2;
 	} else if (GPIOA->IDR & (1<<12)){
-			col = 2; row = 3;
+		col = 2; row = 3;
 	}
 	GPIOB->ODR &= ~(1<<5);
 	
@@ -124,28 +110,25 @@ void detect_keypress(void){
 	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 1; row = 0;
-		
 	} else if (GPIOA->IDR & (1<<10)){
 		col = 1; row = 1;
-	
 	} else if (GPIOA->IDR & (1<<11)){
-			col = 1; row = 2;
+		col = 1; row = 2;
 	} else if (GPIOA->IDR & (1<<12)){
-			col = 1; row = 3;
+		col = 1; row = 3;
 	}
 	GPIOB->ODR &= ~(1<<4);
 	
 	//Check column 1
 	GPIOB->ODR |= (1<<3);
 	if(GPIOA->IDR & (1<<9)){
-			col = 0; row = 0;
-		
+		col = 0; row = 0;
 	} else if (GPIOA->IDR & (1<<10)){
-			col = 0; row = 1;
+		col = 0; row = 1;
 	} else if (GPIOA->IDR & (1<<11)){
-			col = 0; row = 2;
+		col = 0; row = 2;
 	} else if (GPIOA->IDR & (1<<12)){
-			col = 0; row = 3;
+		col = 0; row = 3;
 	}
 	GPIOB->ODR &= ~(1<<3);
 
@@ -162,11 +145,15 @@ void detect_keypress(void){
 		debounce = 0;
 	} else if(debounce > 499 && keySent == 0){
 		keyRelease = 0;
+		/*
+			
+		*/
 		switch(currentState){
+/*****************************HEX*************************************/			
 			case HEX_MODE: 
 				moveCursor(textX, hex_y);
 				enteredNumber |= (convert_to_integer(keys[row][col]) << (28 - numCount*4));
-				drawChar(keys[row][col]);
+				drawChar(keys[row][col], GREEN);
 				keySent = 1;
 				numCount++;
 				textX += get_charWidth(keys[row][col]);
@@ -177,8 +164,10 @@ void detect_keypress(void){
 					numCount = 0;
 					textX = 44;
 					moveCursor(textX, 55);
+					currentState = MAIN_MENU;
 				}
 				break;
+/*****************************BINARY*************************************/				
 			case BINARY_MODE: 
 				if(numCount < 12){
 					moveCursor(textX, binary_y_1);
@@ -188,7 +177,7 @@ void detect_keypress(void){
 					moveCursor(textX, binary_y_3);
 				}
 				enteredNumber |= (convert_to_integer(keys[row][col]) << (31-numCount));
-				drawChar(keys[row][col]);
+				drawChar(keys[row][col], GREEN);
 				keySent = 1;
 				numCount++;
 				textX += get_charWidth(keys[row][col]);
@@ -198,14 +187,15 @@ void detect_keypress(void){
 					enteredNumber = 0;
 					numCount = 0;
 					textX = 10;
+					currentState = MAIN_MENU;
 				} else if(numCount == 4 | numCount == 8 | numCount == 16 | numCount == 20 | numCount == 28){
-					drawChar(' ');
+					drawChar(' ', GREEN);
 					textX += get_charWidth(' ');
 				} else if(numCount == 12 | numCount == 24){
 					textX = 10;
 				}
 				break;
-			
+/*****************************DECIMAL*************************************/			
 			case DECIMAL_MODE:
 				if(keys[row][col] == ENTER){
 					print_binary();
@@ -213,12 +203,13 @@ void detect_keypress(void){
 					enteredNumber = 0;
 					numCount = 0;
 					textX = 10;
+					currentState = MAIN_MENU;
 					break;
 				}
 				
 				moveCursor(textX, decimal_y);
 				keySent = 1;
-				drawChar(keys[row][col]);
+				drawChar(keys[row][col], GREEN);
 				textX += get_charWidth(keys[row][col]);
 				numCount++;
 				enteredNumber *= 10;
@@ -231,6 +222,30 @@ void detect_keypress(void){
 					numCount = 0;
 					textX = 10;
 				}
+/*****************************MAIN MENU*************************************/			
+			case MAIN_MENU:
+				if(keys[row][col] == ENTER){
+					currentState = menu_select;
+					if(currentState == HEX_MODE) textX = 44;
+					if(currentState == DECIMAL_MODE | currentState == BINARY_MODE) textX = 10;
+					
+				} else if(keys[row][col] == UP){
+					if(menu_select == 0){
+						menu_select = 2;
+					} else {
+						menu_select--;
+					}
+					updateMenu();
+				} else if(keys[row][col] == DOWN){
+					if(menu_select == 2){
+						menu_select = 0;
+					} else {
+						menu_select++;
+					}
+					updateMenu();
+				}
+				keySent = 1;
+			break;
 			default:
 			
 				break;
@@ -242,6 +257,31 @@ void detect_keypress(void){
 			keySent = 0;
 		}
 		keyRelease++;
+	}
+}
+
+void updateMenu(void){
+	if(menu_select == BINARY_MODE){
+		moveCursor(10, 230);
+		drawString("Binary", RED);
+		moveCursor(10, 130);
+		drawString("Decimal", GREEN);
+		moveCursor(10, 80);
+		drawString("Hex", GREEN);
+	} else if (menu_select == DECIMAL_MODE){
+		moveCursor(10, 230);
+		drawString("Binary", GREEN);
+		moveCursor(10, 130);
+		drawString("Decimal", RED);
+		moveCursor(10, 80);
+		drawString("Hex", GREEN);
+	} else if (menu_select == HEX_MODE){
+		moveCursor(10, 230);
+		drawString("Binary", GREEN);
+		moveCursor(10, 130);
+		drawString("Decimal", GREEN);
+		moveCursor(10, 80);
+		drawString("Hex", RED);
 	}
 }
 
@@ -259,67 +299,67 @@ void print_hex(void){
 		moveCursor(tempX, hex_y);
 		switch(tempNum%16){
 			case 0:
-				drawChar('0');
+				drawChar('0', GREEN);
 					tempX -= get_charWidth('0');
 				break;
 			case 1:
-				drawChar('1');
+				drawChar('1', GREEN);
 				tempX -= get_charWidth('1');
 				break;
 			case 2:
-				drawChar('2');
+				drawChar('2', GREEN);
 				tempX -= get_charWidth('2');
 				break;
 			case 3:
-				drawChar('3');
+				drawChar('3', GREEN);
 				tempX -= get_charWidth('3');
 				break;
 			case 4:
-				drawChar('4');
+				drawChar('4', GREEN);
 				tempX -= get_charWidth('4');
 				break;
 			case 5:
-				drawChar('5');
+				drawChar('5', GREEN);
 				tempX -= get_charWidth('5');
 				break;
 			case 6:
-				drawChar('6');
+				drawChar('6', GREEN);
 				tempX -= get_charWidth('6');
 				break;
 			case 7:
-				drawChar('7');
+				drawChar('7', GREEN);
 				tempX -= get_charWidth('7');
 				break;
 			case 8:
-				drawChar('8');
+				drawChar('8', GREEN);
 				tempX -= get_charWidth('8');
 				break;
 			case 9:
-				drawChar('9');
+				drawChar('9', GREEN);
 				tempX -= get_charWidth('9');
 				break;
 			case 10:
-				drawChar('A');
+				drawChar('A', GREEN);
 				tempX -= get_charWidth('A');
 				break;
 			case 11:
-				drawChar('B');
+				drawChar('B', GREEN);
 				tempX -= get_charWidth('B');
 				break;
 			case 12:
-				drawChar('C');
+				drawChar('C', GREEN);
 				tempX -= get_charWidth('C');
 				break;
 			case 13:
-				drawChar('D');
+				drawChar('D', GREEN);
 				tempX -= get_charWidth('D');
 				break;
 			case 14:
-				drawChar('E');
+				drawChar('E', GREEN);
 				tempX -= get_charWidth('E');
 				break;
 			case 15:
-				drawChar('F');
+				drawChar('F', GREEN);
 				tempX -= get_charWidth('F');
 				break;
 			default:
@@ -346,10 +386,10 @@ void print_binary(void){
 	while(temp_numCount < 8){
 		moveCursor(tempX, binary_y_3);
 		if(tempNum % 2){
-			drawChar('1');
+			drawChar('1', GREEN);
 			tempX -= get_charWidth('1');
 		} else {
-			drawChar('0');
+			drawChar('0', GREEN);
 			tempX -= get_charWidth('0');
 		}
 		tempNum /= 2;
@@ -358,7 +398,7 @@ void print_binary(void){
 		if(temp_numCount == 4){
 			moveCursor(tempX, binary_y_3);
 			tempX -= get_charWidth(' ');
-			drawChar(' ');
+			drawChar(' ', GREEN);
 		}
 	}
 	
@@ -366,10 +406,10 @@ void print_binary(void){
 	while(temp_numCount < 20){
 		moveCursor(tempX, binary_y_2);
 		if(tempNum % 2){
-			drawChar('1');
+			drawChar('1', GREEN);
 			tempX -= get_charWidth('1');
 		} else {
-			drawChar('0');
+			drawChar('0', GREEN);
 			tempX -= get_charWidth('0');
 		}
 		tempNum /= 2;
@@ -377,7 +417,7 @@ void print_binary(void){
 		if(temp_numCount == 12 | temp_numCount == 16){
 			moveCursor(tempX, binary_y_2);
 			tempX -= get_charWidth(' ');
-			drawChar(' ');
+			drawChar(' ', GREEN);
 		}
 	}
 	
@@ -385,10 +425,10 @@ void print_binary(void){
 	while(temp_numCount < 32){
 		moveCursor(tempX, binary_y_1);
 		if(tempNum % 2){
-			drawChar('1');
+			drawChar('1', GREEN);
 			tempX -= get_charWidth('1');
 		} else {
-			drawChar('0');
+			drawChar('0', GREEN);
 			tempX -= get_charWidth('0');
 		}
 		tempNum /= 2;
@@ -396,7 +436,7 @@ void print_binary(void){
 		if(temp_numCount == 24 | temp_numCount == 28){
 			moveCursor(tempX, binary_y_1);
 			tempX -= get_charWidth(' ');
-			drawChar(' ');
+			drawChar(' ', GREEN);
 		}
 	}
 }
@@ -414,7 +454,7 @@ void print_decimal(void){
 	for(uint8_t i = 0; i < 10; i++){
 		moveCursor(tempX, 105);
 		num = (uint8_t)(tempNum/divisor);
-		drawChar(num + '0');
+		drawChar(num + '0', GREEN);
 		tempNum %= divisor;
 		tempX += get_charWidth(num + '0');
 		divisor /= 10;

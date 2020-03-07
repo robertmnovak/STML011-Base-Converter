@@ -380,7 +380,7 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>MAIN</GroupName>
+          <GroupName>Source</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
@@ -435,7 +435,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Text</GroupName>
+          <GroupName>Font</GroupName>
           <Files>
             <File>
               <FileName>font.h</FileName>

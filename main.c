@@ -20,8 +20,7 @@ int main(void){
 	
 	
 	while(1){
-		delay(1500000);
-		GPIOA->ODR ^= (1<<10);
+		
 	}
 
 }
@@ -29,21 +28,21 @@ int main(void){
 void setup_lcd_background(void){
 	fill_background();
 	moveCursor(10, 230);
-	drawString("Binary");
+	drawString("Binary", RED);
 	moveCursor(10, 205);
-	drawString("0000 0000 0000");
+	drawString("0000 0000 0000", GREEN);
 	moveCursor(10,180);
-	drawString("0000 0000 0000");
+	drawString("0000 0000 0000", GREEN);
 	moveCursor(10,155);
-	drawString("0000 0000");
+	drawString("0000 0000", GREEN);
 	moveCursor(10, 130);
-	drawString("Decimal");
+	drawString("Decimal", GREEN);
 	moveCursor(10, 105);
-	drawString("0");
+	drawString("0", GREEN);
 	moveCursor(10, 80);
-	drawString("Hex");
+	drawString("Hex", GREEN);
 	moveCursor(10, 55);
-	drawString("0x00000000");
+	drawString("0x00000000", GREEN);
 }
 
 void system_clock_init(void){
