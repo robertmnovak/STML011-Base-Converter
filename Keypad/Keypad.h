@@ -13,11 +13,17 @@
 #define BINARY_MODE 1
 #define DECIMAL_MODE 2
 
+#define CLEAR 'R'
+#define ENTER 'T'
+#define UP 'U'
+#define DOWN 'J'
+	
 uint32_t convert_to_integer(char character);
 void GPIO_Keypad_Enable(void);
 void detect_keypress(void);
 void print_decimal(void);
 void print_binary(void);
 void print_hex(void);
+void keypad_Delay(int x);
 #endif /* KEYPAD_H_ */
 

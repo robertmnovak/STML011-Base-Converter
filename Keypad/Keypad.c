@@ -11,12 +11,20 @@ uint8_t numCount = 0;
 uint32_t enteredNumber = 0;
 uint8_t currentState = DECIMAL_MODE;
 
-char keys[2][2] = {
-	{'1', '2'},
-	{'3', 'E'}
+char keys[4][5] = {
+	{'1', '2', '3', 'F', CLEAR}, //R = CLEAR
+	{'4', '5', '6', 'E', ENTER}, //T = ENTER
+	{'7', '8', '9', 'D', UP}, //U = UP
+	{'0', 'A', 'B', 'C', DOWN}	//J = DOWN
 };
 
 
+
+void keypad_Delay(int x){
+	while(x > 0){
+		x--;
+	}
+}
 
 /********************************************************************************
 GPIO Keypad Enable
@@ -26,14 +34,26 @@ Sets column of multiplexed keypad to outputs and rows as inputs
 Then enables external interrupts for the rows and choose rising edge trigger
 ********************************************************************************/
 void GPIO_Keypad_Enable(void){
-	GPIOA->MODER &= ~(GPIO_MODER_MODE0 | GPIO_MODER_MODE1 | GPIO_MODER_MODE9 | GPIO_MODER_MODE10);
-	GPIOA->MODER |= (GPIO_MODER_MODE0_0 | GPIO_MODER_MODE1_0);
-	GPIOA->OSPEEDR |= (GPIO_MODER_MODE0_1 | GPIO_MODER_MODE1_1);
-	GPIOA->PUPDR |= (GPIO_PUPDR_PUPD9_1 | GPIO_PUPDR_PUPD10_1);
-	GPIOA->ODR |= (1<<0)|(1<<1);
-
-	EXTI->IMR |= (EXTI_IMR_IM9 | EXTI_IMR_IM10);
-	EXTI->RTSR |= (EXTI_RTSR_RT9 | EXTI_RTSR_RT10);
+	RCC->IOPENR |= RCC_IOPENR_GPIOBEN;
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+	//Set-up Rows as Inputs (PINS: A9,A10,A11,A12)
+	GPIOA->MODER &= ~(GPIO_MODER_MODE9 | GPIO_MODER_MODE10 | GPIO_MODER_MODE11 | GPIO_MODER_MODE12);
+	GPIOA->OSPEEDR &= ~(GPIO_OSPEEDER_OSPEED9_0 | GPIO_OSPEEDER_OSPEED10_0 | GPIO_OSPEEDER_OSPEED11_0 | GPIO_OSPEEDER_OSPEED12_0 | GPIO_OSPEEDER_OSPEED15_0);
+	GPIOA->PUPDR &= ~(GPIO_PUPDR_PUPD9 | GPIO_PUPDR_PUPD10 | GPIO_PUPDR_PUPD11 | GPIO_PUPDR_PUPD12);
+	GPIOA->PUPDR |= (GPIO_PUPDR_PUPD9_1 | GPIO_PUPDR_PUPD10_1 | GPIO_PUPDR_PUPD11_1 | GPIO_PUPDR_PUPD12_1);
+	
+	
+	//Set-up Columns as Outputs (PINS: B3,B4,B5,B6, B7)
+	GPIOB->MODER &= ~(GPIO_MODER_MODE3 | GPIO_MODER_MODE4 | GPIO_MODER_MODE5 | GPIO_MODER_MODE6 | GPIO_MODER_MODE7);
+	GPIOB->MODER |= (GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0 | GPIO_MODER_MODE5_0 | GPIO_MODER_MODE6_0 | GPIO_MODER_MODE7_0);
+	GPIOB->OSPEEDR |= (GPIO_OSPEEDER_OSPEED3_0 | GPIO_OSPEEDER_OSPEED4_0 | GPIO_OSPEEDER_OSPEED5_0 | GPIO_OSPEEDER_OSPEED6_0 | GPIO_OSPEEDER_OSPEED7_0);
+	GPIOB->ODR |= (1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7);
+	
+	EXTI->IMR |= (EXTI_IMR_IM9 | EXTI_IMR_IM10 | EXTI_IMR_IM11 | EXTI_IMR_IM12);
+	EXTI->RTSR |= (EXTI_RTSR_RT9 | EXTI_RTSR_RT10 | EXTI_RTSR_RT11 | EXTI_RTSR_RT12);
+	
+	//EXTI->IMR |= ( EXTI_IMR_IM10);
+	//EXTI->RTSR |= (EXTI_RTSR_RT10);
 	
 	NVIC_EnableIRQ(EXTI4_15_IRQn);
 	NVIC_SetPriority(EXTI4_15_IRQn, 1);
@@ -49,26 +69,88 @@ The bottom part contains a simple debouncing loop
 ********************************************************************************/
 void detect_keypress(void){
 	uint8_t row = 0, col = 0;
-	GPIOA->ODR &= ~((1<<0)|(1<<1));
-	GPIOA->ODR |= (1<<0);
+	GPIOB->ODR &= ~((1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7));
+	
+		//Check column 5
+	GPIOB->ODR |= (1<<7);
+	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
-			col = 0; row = 0;
+		col = 4; row = 0;
 		
 	} else if (GPIOA->IDR & (1<<10)){
-			col = 0; row = 1;
-		
+		col = 4; row = 1;
+	
+	} else if (GPIOA->IDR & (1<<11)){
+			col = 4; row = 2;
+	} else if (GPIOA->IDR & (1<<12)){
+			col = 4; row = 3;
 	}
-	GPIOA->ODR &= ~(1<<0);
-	GPIOA->ODR |= (1<<1);
+	GPIOB->ODR &= ~(1<<7);
+	
+		//Check column 4
+	GPIOB->ODR |= (1<<6);
+	LCD_Delay(20);
+	if(GPIOA->IDR & (1<<9)){
+		col = 3; row = 0;
+		
+	} else if (GPIOA->IDR & (1<<10)){
+		col = 3; row = 1;
+	
+	} else if (GPIOA->IDR & (1<<11)){
+			col = 3; row = 2;
+	} else if (GPIOA->IDR & (1<<12)){
+			col = 3; row = 3;
+	}
+	GPIOB->ODR &= ~(1<<6);
+
+		//Check column 3
+	GPIOB->ODR |= (1<<5);
+	LCD_Delay(20);
+	if(GPIOA->IDR & (1<<9)){
+		col = 2; row = 0;
+		
+	} else if (GPIOA->IDR & (1<<10)){
+		col = 2; row = 1;
+	
+	} else if (GPIOA->IDR & (1<<11)){
+			col = 2; row = 2;
+	} else if (GPIOA->IDR & (1<<12)){
+			col = 2; row = 3;
+	}
+	GPIOB->ODR &= ~(1<<5);
+	
+		//Check column 2
+	GPIOB->ODR |= (1<<4);
+	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 1; row = 0;
 		
 	} else if (GPIOA->IDR & (1<<10)){
 		col = 1; row = 1;
 	
+	} else if (GPIOA->IDR & (1<<11)){
+			col = 1; row = 2;
+	} else if (GPIOA->IDR & (1<<12)){
+			col = 1; row = 3;
 	}
-	GPIOA->ODR |= (1<<0);
+	GPIOB->ODR &= ~(1<<4);
 	
+	//Check column 1
+	GPIOB->ODR |= (1<<3);
+	if(GPIOA->IDR & (1<<9)){
+			col = 0; row = 0;
+		
+	} else if (GPIOA->IDR & (1<<10)){
+			col = 0; row = 1;
+	} else if (GPIOA->IDR & (1<<11)){
+			col = 0; row = 2;
+	} else if (GPIOA->IDR & (1<<12)){
+			col = 0; row = 3;
+	}
+	GPIOB->ODR &= ~(1<<3);
+
+
+	GPIOB->ODR |= (1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7);
 	currentKey = (uint8_t)keys[row][col];
 	
 //Debouncing
@@ -125,7 +207,7 @@ void detect_keypress(void){
 				break;
 			
 			case DECIMAL_MODE:
-				if(keys[row][col] == 'E'){
+				if(keys[row][col] == ENTER){
 					print_binary();
 					print_hex();
 					enteredNumber = 0;
@@ -410,10 +492,17 @@ Checks to see which row the button was pressed in, then clears the interrupt
 and calls the detect keypress function
 ********************************************************************************/
 void EXTI4_15_IRQHandler(void){
-	if(EXTI->PR & EXTI_PR_PR10){
-		EXTI->PR |= EXTI_PR_PR10;
-	} else if(EXTI->PR & EXTI_PR_PR9){
-		EXTI->PR |= EXTI_PR_PR9;
+	if(EXTI->PR & (1<<11)){
+		EXTI->PR |= (1<<11);
+	}
+	if(EXTI->PR & (1<<9)){
+		EXTI->PR |= (1<<9);
+	}
+	if(EXTI->PR & (1<<10)){
+		EXTI->PR |= (1<<10);
+	}
+	if(EXTI->PR & (1<<12)){
+		EXTI->PR |= (1<<12);
 	}
 	detect_keypress();
 }
