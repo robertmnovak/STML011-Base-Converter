@@ -1,7 +1,5 @@
 #include "Keypad.h"
 #include "LCD_SPI.h"
-#define SYS_CLOCK_HZ 16000000U
-
 
 uint16_t keyRelease = 0;
 uint8_t textX = 10;
@@ -63,6 +61,7 @@ The bottom part contains a simple debouncing loop
 ********************************************************************************/
 void detect_keypress(void){
 	uint8_t row = 0, col = 0;
+	uint8_t binary_y = 0;
 	GPIOB->ODR &= ~((1<<3)|(1<<4)|(1<<5)|(1<<6)|(1<<7));
 	
 		//Check column 5
@@ -152,15 +151,18 @@ void detect_keypress(void){
 					drawChar(keys[row][col], GREEN);
 					keySent = 1;
 					numCount++;
-					textX += get_charWidth(keys[row][col]);
 					if(numCount == 8){
 						print_decimal();
 						print_binary();
 						enteredNumber = 0;
 						numCount = 0;
 						textX = 44;
-						moveCursor(textX, 55);
+						moveCursor(textX, hex_y);
 						currentState = MAIN_MENU;
+					} else {
+						moveCursor(textX+17,hex_y);
+						drawChar('_', GREEN);
+						textX += get_charWidth(keys[row][col]);
 					}
 				} else if (keys[row][col] == CLEAR){
 					erase_Hex();
@@ -175,17 +177,17 @@ void detect_keypress(void){
 			case BINARY_MODE: 
 				if(keys[row][col] == '0' || keys[row][col] == '1'){
 					if(numCount < 12){
-						moveCursor(textX, binary_y_1);
+						binary_y = binary_y_1;
 					} else if(numCount < 24){
-						moveCursor(textX, binary_y_2);
+						binary_y = binary_y_2;
 					} else {
-						moveCursor(textX, binary_y_3);
+						binary_y = binary_y_3;
 					}
+						moveCursor(textX, binary_y);
 					enteredNumber |= (convert_to_integer(keys[row][col]) << (31-numCount));
 					drawChar(keys[row][col], GREEN);
 					keySent = 1;
 					numCount++;
-					textX += get_charWidth(keys[row][col]);
 					if(numCount == 32){
 						print_decimal();
 						print_hex();
@@ -194,10 +196,19 @@ void detect_keypress(void){
 						textX = 10;
 						currentState = MAIN_MENU;
 					} else if(numCount == 4 | numCount == 8 | numCount == 16 | numCount == 20 | numCount == 28){
+						textX += get_charWidth(keys[row][col]);
 						drawChar(' ', GREEN);
 						textX += get_charWidth(' ');
+						moveCursor(textX,binary_y);
+						drawChar('_', GREEN);
 					} else if(numCount == 12 | numCount == 24){
 						textX = 10;
+						moveCursor(textX,binary_y-25);
+						drawChar('_', GREEN);
+					} else {
+						moveCursor(textX+17,binary_y);
+						drawChar('_', GREEN);
+						textX += get_charWidth(keys[row][col]);
 					}
 				} else if (keys[row][col] == CLEAR){
 					erase_Binary();

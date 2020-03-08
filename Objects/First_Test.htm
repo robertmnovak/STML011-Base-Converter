@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\First_Test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\First_Test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Mar 08 01:27:29 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Mar 08 14:00:09 2020
 <BR><P>
 <H3>Maximum Stack Usage =        256 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -321,7 +321,7 @@ Global Symbols
 <P><STRONG><a name="[95]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text), UNUSED)
 
 <P><STRONG><a name="[59]"></a>__aeabi_uidivmod</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, aeabi_sdiv.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
+<BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
@@ -573,18 +573,18 @@ Global Symbols
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_lcd
 </UL>
 
-<P><STRONG><a name="[4d]"></a>detect_keypress</STRONG> (Thumb, 1836 bytes, Stack size 16 bytes, keypad.o(i.detect_keypress))
+<P><STRONG><a name="[4d]"></a>detect_keypress</STRONG> (Thumb, 1942 bytes, Stack size 16 bytes, keypad.o(i.detect_keypress))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = detect_keypress &rArr; updateMenu &rArr; drawString &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateMenu
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hex
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Hex
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Decimal
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Binary
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;convert_to_integer
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
 </UL>
@@ -601,8 +601,8 @@ Global Symbols
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearChar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hex
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detect_keypress
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawString
 </UL>
@@ -681,10 +681,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setup_lcd_background
 </UL>
 
-<P><STRONG><a name="[5d]"></a>get_charWidth</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lcd_spi.o(i.get_charWidth))
+<P><STRONG><a name="[5f]"></a>get_charWidth</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, lcd_spi.o(i.get_charWidth))
 <BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hex
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detect_keypress
 </UL>
 
@@ -716,8 +716,8 @@ Global Symbols
 <P><STRONG><a name="[5b]"></a>moveCursor</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, lcd_spi.o(i.moveCursor))
 <BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateMenu
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hex
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_decimal
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_binary
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Hex
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Decimal
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;erase_Binary
@@ -725,21 +725,21 @@ Global Symbols
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setup_lcd_background
 </UL>
 
-<P><STRONG><a name="[5f]"></a>print_binary</STRONG> (Thumb, 366 bytes, Stack size 16 bytes, keypad.o(i.print_binary))
+<P><STRONG><a name="[5e]"></a>print_binary</STRONG> (Thumb, 366 bytes, Stack size 16 bytes, keypad.o(i.print_binary))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = print_binary &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
+<BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;detect_keypress
 </UL>
 
-<P><STRONG><a name="[5e]"></a>print_decimal</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, keypad.o(i.print_decimal))
+<P><STRONG><a name="[5d]"></a>print_decimal</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, keypad.o(i.print_decimal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = print_decimal &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
 </UL>
@@ -750,7 +750,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = print_hex &rArr; drawChar &rArr; clearChar &rArr; setAddrWindow &rArr; writedata &rArr; SPI_Transmit &rArr; SPI_Send &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_charWidth
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drawChar
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;moveCursor
 </UL>

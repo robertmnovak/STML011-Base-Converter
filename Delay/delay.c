@@ -6,7 +6,7 @@ void delay_ticks(uint32_t ticks){
 	SysTick->VAL = 0;
 	SysTick->CTRL = SysTick_CTRL_ENABLE_Msk;
 	
-	while((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == 0 );
+	while(!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk));
 	
 	SysTick->CTRL = 0;
 }
