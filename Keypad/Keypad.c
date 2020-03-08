@@ -1,5 +1,7 @@
 #include "Keypad.h"
 #include "LCD_SPI.h"
+#define SYS_CLOCK_HZ 16000000U
+
 
 uint16_t keyRelease = 0;
 uint8_t textX = 10;
@@ -65,7 +67,6 @@ void detect_keypress(void){
 	
 		//Check column 5
 	GPIOB->ODR |= (1<<7);
-	LCD_Delay(20);
 	if(GPIOA->IDR & (1<<9)){
 		col = 4; row = 0;
 	} else if (GPIOA->IDR & (1<<10)){

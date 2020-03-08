@@ -10,3 +10,4 @@
 .\objects\main.o: .\SPI\SPI_STM32l011.h
 .\objects\main.o: .\LCD\LCD_SPI.h
 .\objects\main.o: .\Keypad\Keypad.h
+.\objects\main.o: .\Delay\delay.h

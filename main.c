@@ -2,7 +2,7 @@
 #include "SPI_STM32l011.h"
 #include "LCD_SPI.h"
 #include "Keypad.h"
-
+#include "delay.h"
 
 void delay(int x);
 void GPIOA_Enable(void);
@@ -20,7 +20,6 @@ int main(void){
 	
 	
 	while(1){
-		
 	}
 
 }
@@ -53,12 +52,6 @@ void system_clock_init(void){
   while (!(RCC->CFGR & RCC_CFGR_SWS_HSI));
 }
 
-void delay(int x){
-	while(x>0){
-		x--;
-	}
-}
-
 /********************************************************************************
 GPIO Enable Function
 
@@ -68,9 +61,9 @@ void GPIOA_Enable(void){
 	RCC->IOPENR |= RCC_IOPENR_GPIOAEN;
 	
 	GPIOA->ODR &= ~(1<<10);
-	GPIOA->MODER &= ~(GPIO_MODER_MODE2 | GPIO_MODER_MODE3 | GPIO_MODER_MODE4);
+	GPIOA->MODER &= ~(GPIO_MODER_MODE0 | GPIO_MODER_MODE2 | GPIO_MODER_MODE3 | GPIO_MODER_MODE4);
 	
-	GPIOA->MODER |= (GPIO_MODER_MODE2_0 | GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0);
+	GPIOA->MODER |= (GPIO_MODER_MODE0_0 | GPIO_MODER_MODE2_0 | GPIO_MODER_MODE3_0 | GPIO_MODER_MODE4_0);
 	GPIOA->OSPEEDR &= ~((1<<20)|(1<<21));
 	GPIOA->OSPEEDR |= (GPIO_OSPEEDER_OSPEED2_0 | GPIO_OSPEEDER_OSPEED3_0 | GPIO_OSPEEDER_OSPEED4_0);
 	GPIOA->PUPDR &= ~((1<<20)|(1<<21));

@@ -27,7 +27,6 @@ void drawString(char *str, uint16_t color);
 void drawPixel(int16_t x, int16_t y, uint16_t color);
 void drawChar(char character, uint16_t color);
 uint8_t reverseBits(uint8_t num);
-void LCD_Delay(int x);
 void init_lcd(void);
 void writedata(uint8_t d);
 void writecommand(uint8_t d);

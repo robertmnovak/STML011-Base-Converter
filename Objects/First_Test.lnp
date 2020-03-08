@@ -5,6 +5,7 @@
 ".\objects\spi_stm32l011.o"
 ".\objects\lcd_spi.o"
 ".\objects\keypad.o"
+".\objects\delay.o"
 --strict --scatter ".\Objects\First_Test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

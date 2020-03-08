@@ -8,3 +8,4 @@
 .\objects\spi_stm32l011.o: C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
 .\objects\spi_stm32l011.o: C:\Users\Robert\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
 .\objects\spi_stm32l011.o: C:\Users\Robert\AppData\Local\Arm\Packs\Keil\STM32L0xx_DFP\2.0.1\Drivers\CMSIS\Device\ST\STM32L0xx\Include\system_stm32l0xx.h
+.\objects\spi_stm32l011.o: .\Delay\delay.h

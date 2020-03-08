@@ -1,10 +1,5 @@
 #include "SPI_STM32l011.h"
-
-void spi_delay(int x){
-	while(x>0){
-		x--;
-	}
-}
+#include "delay.h"
 
 /********************************************************************************
 DMA Enable function
@@ -58,7 +53,7 @@ This function waits for the transmit buffer to be empty before sending the data
 void SPI_Send(uint8_t data) {
 	while (!(SPI1->SR & SPI_SR_TXE)) {};
 		SPI1->DR = data;
-		spi_delay(20);
+		delay_us(1);
 }
 
 /********************************************************************************

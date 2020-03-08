@@ -4,7 +4,6 @@ This project is based around the STM32L011K4T6 chip and uses SPI with DMA to con
 
 # To-do list
 * Add a easy way to know where the cursor placement is when inputting a number
-* Add proper delay functions
 * Add stop mode while main_menu
 * Incorporate ways to turn off unneeded outputs(columns on keypad)
 

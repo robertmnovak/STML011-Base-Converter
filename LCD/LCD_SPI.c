@@ -1,5 +1,7 @@
 #include "LCD_SPI.h"
 #include "font.h"
+#include "delay.h"
+
 uint32_t fill_screen = 0;
 uint16_t current_color = 0;
 struct LCD{
@@ -8,17 +10,6 @@ struct LCD{
     uint16_t HEIGHT;
     uint16_t WIDTH;
 }LCD;
-
-/********************************************************************************
-LCD Delay function
-
-Simple function to cause some short delays during the initialization of the LCD
-********************************************************************************/
-void LCD_Delay(int x){
-	while(x > 0){
-		x--;
-	}
-}
 
 /********************************************************************************
 Move Cursor Function
@@ -168,9 +159,7 @@ previous driver libraries
 ********************************************************************************/
 void init_lcd(void){
     GPIOA->ODR &= ~(RS);
-    LCD_Delay(100);
     GPIOA->ODR |= (RS);
-    LCD_Delay(100);
 
     writecommand(0xEF);
     writedata(0x03);
@@ -276,9 +265,9 @@ void init_lcd(void){
     writedata(0x0F);
 
     writecommand(0x11); 
-    LCD_Delay(1200);
+    delay_us(1200);
     writecommand(0x29);  
-    LCD_Delay(100000);
+    delay_ms(100);
 		
     LCD.HEIGHT = 320;
     LCD.WIDTH = 240;
