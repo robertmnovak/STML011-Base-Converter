@@ -14,9 +14,9 @@
 #define DECIMAL_MODE 1
 #define MAIN_MENU 3
 
-#define CLEAR 'R'
-#define ENTER 'T'
-#define UP 'U'
+#define CLEAR 'G'
+#define ENTER 'H'
+#define UP 'I'
 #define DOWN 'J'
 	
 uint32_t convert_to_integer(char character);

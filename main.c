@@ -8,7 +8,7 @@ void delay(int x);
 void GPIOA_Enable(void);
 void system_clock_init(void);
 void setup_lcd_background(void);
-void sleepMode(void);
+void stop_mode_enable(void);
 
 int main(void){
 	system_clock_init();
@@ -20,14 +20,29 @@ int main(void){
 	
 	
 	while(1){
+		delay_ms(1000);
+		stop_mode_enable();
 	}
 
+}
+
+
+void stop_mode_enable(void){
+	RCC->APB1ENR |= (RCC_APB1ENR_PWREN);
+	//Set deepsleep mode
+	SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+	//Put it in STOP mode
+	PWR->CR &= ~(PWR_CR_PDDS);
+	RCC->CFGR |= RCC_CFGR_STOPWUCK;
+	PWR->CR |= PWR_CR_CWUF;
+	
+	__WFI();
 }
 
 void setup_lcd_background(void){
 	fill_background();
 	moveCursor(10, 230);
-	drawString("Binary", RED);
+	drawString("BINARY", RED);
 	moveCursor(10, 205);
 	drawString("0000 0000 0000", GREEN);
 	moveCursor(10,180);
@@ -35,11 +50,11 @@ void setup_lcd_background(void){
 	moveCursor(10,155);
 	drawString("0000 0000", GREEN);
 	moveCursor(10, 130);
-	drawString("Decimal", GREEN);
+	drawString("DECIMAL", GREEN);
 	moveCursor(10, 105);
 	drawString("0", GREEN);
 	moveCursor(10, 80);
-	drawString("Hex", GREEN);
+	drawString("HEX", GREEN);
 	moveCursor(10, 55);
 	drawString("0x00000000", GREEN);
 }

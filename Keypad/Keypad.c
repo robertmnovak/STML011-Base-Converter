@@ -330,25 +330,25 @@ Changes current selected mode to RED color and all others to GREEN
 void updateMenu(void){
 	if(menu_select == BINARY_MODE){
 		moveCursor(10, 230);
-		drawString("Binary", RED);
+		drawString("BINARY", RED);
 		moveCursor(10, 130);
-		drawString("Decimal", GREEN);
+		drawString("DECIMAL", GREEN);
 		moveCursor(10, 80);
-		drawString("Hex", GREEN);
+		drawString("HEX", GREEN);
 	} else if (menu_select == DECIMAL_MODE){
 		moveCursor(10, 230);
-		drawString("Binary", GREEN);
+		drawString("BINARY", GREEN);
 		moveCursor(10, 130);
-		drawString("Decimal", RED);
+		drawString("DECIMAL", RED);
 		moveCursor(10, 80);
-		drawString("Hex", GREEN);
+		drawString("HEX", GREEN);
 	} else if (menu_select == HEX_MODE){
 		moveCursor(10, 230);
-		drawString("Binary", GREEN);
+		drawString("BINARY", GREEN);
 		moveCursor(10, 130);
-		drawString("Decimal", GREEN);
+		drawString("DECIMAL", GREEN);
 		moveCursor(10, 80);
-		drawString("Hex", RED);
+		drawString("HEX", RED);
 	}
 }
 
